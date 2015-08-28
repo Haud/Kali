@@ -1,0 +1,10 @@
+framework module DateTime {
+  umbrella header "DateTime-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module DateTime.Swift {
+    header "DateTime-Swift.h"
+}
