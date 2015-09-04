@@ -23,7 +23,7 @@ previous versions of Swift.
 
 ### DateTime
 
-DateTime aims to be as simple and seamless as possible by mimicing the `NSDate` APIs whereever possible. 
+DateTime aims to be as simple and seamless as possible by mimicking the `NSDate` APIs wherever possible. 
 
 For instance, to instantiate DateTime with the current date and time, simply:
 
@@ -48,12 +48,12 @@ Accessing the various components of the date value is simple:
 
 ```swift
 let datetime = DateTime(month: 12, day: 13, year: 2000)
-print(datetime.mont)    // 12
+print(datetime.month)    // 12
 print(datetime.day)     // 13
 print(datetime.year)    // 2000
 ```
 
-DateTime implements `RawRepresentable` and can be conveniently initialied using the time interval in seconds since 
+DateTime implements `RawRepresentable` and can be conveniently initialized using the time interval in seconds since 
 January 1, 1970.
 
 DateTime implements `Comparable`, making it easy to compare two DateTime objects using `==`, `!=`, `>`, `>=`, `<`, `<=` .
@@ -111,7 +111,7 @@ pod "DateTime", '~> 1.0'
 
 All contributions to bettering this library are welcome! 
 
-Feel free to create a pull request for this library to add or fix functionality. When contributing, pleae make sure
+Feel free to create a pull request for this library to add or fix functionality. When contributing, please make sure
 to follow the general style of the library: use `self` for all class level properties, document all public headers 
 for AppleDocs, etc.
 
