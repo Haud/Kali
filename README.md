@@ -1,22 +1,22 @@
-# DateTime
+# Kali
 
 [![Version](https://img.shields.io/cocoapods/v/DateTime.svg?style=flat)](http://cocoapods.org/pods/DateTime)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/DateTime.svg?style=flat)](http://cocoapods.org/pods/DateTime)
 [![Platform](https://img.shields.io/cocoapods/p/DateTime.svg?style=flat)](http://cocoapods.org/pods/DateTime)
 
-DateTime is an iOS library written in Swift which aims to bring a native date object to the Swift library.
+Kali is an iOS library written in Swift which aims to bring a native date object to the Swift library.
 Many types such as `String` and `Int` have found native types in Swift from Objective-c, but `NSDate` did
 not get such a treatment.
 
-DateTime aims to wrap the complexities of `NSDate`, `NSCalendar`, and `NSTimeZone` in a much simpler interface,
-making interfacing with dates much easier and safer than before. Unlike other libraries, `DateTime` does not aim
+Kali presents DateTime, an object which aims to wrap the complexities of `NSDate`, `NSCalendar`, and `NSTimeZone` in a much simpler interface,
+making interfacing with dates much easier and safer than before. Unlike other libraries, `Kali` does not aim
 to extend `NSDate` or other Swift native types; instead, it aims to create a new, immutable Swift type that
 wraps the complex functionality found in `NSDate` in an easier and safer manner.
 
 ## Requirements
 
-DateTime is only compatible with Swift 2 and Xcode 7 and above. There is no support for this library for any
+Kali is only compatible with Swift 2 and Xcode 7 and above. There is no support for this library for any
 previous versions of Swift.
 
 ## Usage
@@ -100,11 +100,11 @@ TimeSpan implements `RawRepresentable` and can be conveniently initialized using
 
 ## Installation
 
-DateTime is available through [CocoaPods](http://cocoapods.org). To install
+Kali is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "DateTime", '~> 1.0'
+pod "Kali", '~> 1.0'
 ```
 
 ## Contributing
@@ -123,4 +123,4 @@ Christopher Jones, chris.jones@haud.co
 
 ## License
 
-DateTime is available under the MIT license. See the LICENSE file for more info.
+Kali is available under the MIT license. See the LICENSE file for more info.
