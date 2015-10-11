@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.author           = { "Christopher Jones" => "chris.jones@haud.co" }
   s.source           = { :git => "https://github.com/Haud/DateTime.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '8.0'
+  s.platforms     = { :ios => '8.0', :tvos => '9.0' }
   s.requires_arc = true
 
   s.source_files = 'src/*.swift'
