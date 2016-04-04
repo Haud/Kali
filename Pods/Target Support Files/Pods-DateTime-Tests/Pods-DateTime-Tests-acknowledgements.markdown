@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## DateTime
+## Kali
 
 Copyright (c) 2015 Christopher Jones <chris.jones@haud.co>
 

@@ -43,13 +43,8 @@ All documentation can be found in the [Documentation folder](./Documentation), i
 use_frameworks!
 
 def testing_pods
-    # If you're using Xcode 7 / Swift 2
-    pod 'Quick', '~> 0.5.0'
-    pod 'Nimble', '2.0.0-rc.2'
-
-    # If you're using Xcode 6 / Swift 1.2
-    pod 'Quick', '~> 0.3.0'
-    pod 'Nimble', '~> 1.0.0'
+    pod 'Quick', '~> 0.9.0'
+    pod 'Nimble', '3.0.0'
 end
 
 target 'MyTests' do

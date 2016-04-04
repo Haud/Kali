@@ -1,0 +1,6 @@
+framework module Kali {
+  umbrella header "Kali-umbrella.h"
+
+  export *
+  module * { export * }
+}

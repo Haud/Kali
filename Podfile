@@ -5,9 +5,9 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'DateTime-Tests', :exclusive => true do
-    pod 'DateTime', :path => './'
+    pod ‘Kali’, :path => './'
 
-    pod 'Quick', :git => 'git@github.com:Quick/Quick.git', :branch => 'swift-2.0'
-    pod 'Nimble', :git => 'git@github.com:Quick/Nimble.git', :branch => 'swift-2.0'
+    pod 'Quick', '0.9.1'
+    pod 'Nimble', '3.2.0'
 end
 

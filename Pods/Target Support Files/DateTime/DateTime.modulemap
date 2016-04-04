@@ -1,6 +1,0 @@
-framework module DateTime {
-  umbrella header "DateTime-umbrella.h"
-
-  export *
-  module * { export * }
-}
