@@ -32,13 +32,13 @@ import UIKit
 public struct DateTime: Comparable
 {
     /// The timezone of the date time. This defaults to the device timezone if not specified during initialization.
-    public let timezone: NSTimeZone
+    public let timezone: TimeZone
 
     // NSDate value used internally
-    private let internalDate: NSDate
+    fileprivate let internalDate: Date
 
     // NSCalendarComponents used internally.
-    private let calendarComponents: NSDateComponents
+    fileprivate let calendarComponents: DateComponents
 
     /**
     Initializes a new instance of DateTime, with the date set to the current date and time.
@@ -47,7 +47,7 @@ public struct DateTime: Comparable
     */
     public init()
     {
-        self.init(date: NSDate())
+        self.init(date: Date())
     }
 
     /**
@@ -59,9 +59,9 @@ public struct DateTime: Comparable
 
     :returns: A new instance of DateTime set to the specified time interval since the input reference date.
     */
-    public init(timeInterval: NSTimeInterval, sinceDate date: NSDate, inTimezone timezone: NSTimeZone = NSTimeZone.defaultTimeZone())
+    public init(timeInterval: TimeInterval, sinceDate date: Date, inTimezone timezone: TimeZone = TimeZone.current)
     {
-        let date = NSDate(timeInterval: timeInterval, sinceDate: date)
+        let date = Date(timeInterval: timeInterval, since: date)
         self.init(date: date, timezone: timezone)
     }
 
@@ -74,13 +74,13 @@ public struct DateTime: Comparable
 
     :returns: If the date string is valid and can be parsed, a new DateTime object; otherwise, this will be nil
     */
-    public init?(string: String, format: String, timezone: NSTimeZone = NSTimeZone.defaultTimeZone())
+    public init?(string: String, format: String, timezone: TimeZone = TimeZone.current)
     {
-        let dateFormatter = NSDateFormatter.sharedFormatter
+        let dateFormatter = DateFormatter.sharedFormatter
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = timezone
 
-        guard let dateValue = dateFormatter.dateFromString(string) else {
+        guard let dateValue = dateFormatter.date(from: string) else {
             return nil
         }
         
@@ -97,7 +97,7 @@ public struct DateTime: Comparable
 
     :returns: If a DateTime can be initialized with the specified input, a new DateTime object; otherwise this will be nil.
     */
-    public init?(month: Month, day: Int, year: Int, timezone: NSTimeZone = NSTimeZone.defaultTimeZone())
+    public init?(month: Month, day: Int, year: Int, timezone: TimeZone = TimeZone.current)
     {
         self.init(month: month, day: day, year: year, hour: 0, minute: 0, second: 0, timezone: timezone)
     }
@@ -115,12 +115,12 @@ public struct DateTime: Comparable
 
     :returns: If a DateTime can be initialized with the specified input, a new DateTime object; otherwise this will be nil.
     */
-    public init?(month: Month, day: Int, year: Int, hour: Int, minute: Int, second: Int, timezone: NSTimeZone = NSTimeZone.defaultTimeZone())
+    public init?(month: Month, day: Int, year: Int, hour: Int, minute: Int, second: Int, timezone: TimeZone = TimeZone.current)
     {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        var calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         calendar.timeZone = timezone
 
-        let components = NSDateComponents()
+        var components = DateComponents()
         components.calendar = calendar
         components.timeZone = timezone
         components.month = month.rawValue
@@ -130,7 +130,7 @@ public struct DateTime: Comparable
         components.minute = minute
         components.second = second
 
-        guard let dateValue = calendar.dateFromComponents(components) else {
+        guard let dateValue = calendar.date(from: components) else {
             return nil
         }
 
@@ -145,16 +145,16 @@ public struct DateTime: Comparable
 
     :returns: A new instance of DateTime.
     */
-    public init(date: NSDate, timezone: NSTimeZone = NSTimeZone.defaultTimeZone())
+    public init(date: Date, timezone: TimeZone = TimeZone.current)
     {
         self.internalDate = date
         self.timezone = timezone
 
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        var calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         calendar.timeZone = timezone
 
-        let calendarUnits = NSCalendarUnit(rawValue: UInt.max)
-        self.calendarComponents = calendar.components(calendarUnits, fromDate: self.internalDate)
+        let calendarUnits = Set<Calendar.Component>([.day, .hour, .year, .minute, .second, .weekday, .weekdayOrdinal, .weekOfMonth, .weekOfYear])
+        self.calendarComponents = calendar.dateComponents(calendarUnits, from: self.internalDate)
     }
 }
 
@@ -163,7 +163,7 @@ public struct DateTime: Comparable
 extension DateTime: RawRepresentable
 {
     /// The raw type of DateTime.
-    public typealias RawType = NSTimeInterval
+    public typealias RawType = TimeInterval
 
     /// The raw value of the DateTime as represented in the number of seconds since 1970.
     public var rawValue: RawType {
@@ -180,7 +180,7 @@ extension DateTime: RawRepresentable
     :returns: A new instance of DateTime; this initialization can be safely force-unwrapped.
     */
     public init?(rawValue: RawType) {
-        let date = NSDate(timeIntervalSince1970: rawValue)
+        let date = Date(timeIntervalSince1970: rawValue)
         self.init(date: date)
     }
 }
@@ -192,49 +192,49 @@ extension DateTime
     /// The weekday component of the date.
     public var weekday: Weekday {
         get {
-            return Weekday(rawValue: self.calendarComponents.weekday)!
+            return Weekday(rawValue: self.calendarComponents.weekday!)!
         }
     }
 
     /// The month component of the date.
     public var month: Month {
         get {
-            return Month(rawValue: self.calendarComponents.month)!
+            return Month(rawValue: self.calendarComponents.month!)!
         }
     }
 
     /// The day component of the date.
     public var day: Int {
         get {
-            return self.calendarComponents.day
+            return self.calendarComponents.day!
         }
     }
 
     /// The year component of the date.
     public var year: Int {
         get {
-            return self.calendarComponents.year
+            return self.calendarComponents.year!
         }
     }
 
     /// The hour component of the date.
     public var hour: Int {
         get {
-            return self.calendarComponents.hour
+            return self.calendarComponents.hour!
         }
     }
 
     /// The minute comopnent of the date.
     public var minute: Int {
         get {
-            return self.calendarComponents.minute
+            return self.calendarComponents.minute!
         }
     }
 
     /// The second component of the date.
     public var second: Int {
         get {
-            return self.calendarComponents.second
+            return self.calendarComponents.second!
         }
     }
 }
@@ -251,10 +251,10 @@ extension DateTime
 
     :returns: A new DateTime modified by the number of seconds.
     */
-    public func addSeconds(seconds: Int) -> DateTime
+    public func add(seconds: Int) -> DateTime
     {
         let timespan = TimeSpan(days: 0, hours: 0, minutes: 0, seconds: seconds)
-        return self.addTimespan(timespan)
+        return self.add(timespan: timespan)
     }
 
     /**
@@ -264,10 +264,10 @@ extension DateTime
 
     :returns: A new DateTime modified by the number of minutes.
     */
-    public func addMinutes(minutes: Int) -> DateTime
+    public func add(minutes: Int) -> DateTime
     {
         let timespan = TimeSpan(days: 0, hours: 0, minutes: minutes, seconds: 0)
-        return self.addTimespan(timespan)
+        return self.add(timespan: timespan)
     }
 
     /**
@@ -277,10 +277,10 @@ extension DateTime
 
     :returns: A new DateTime modified by the number of hours.
     */
-    public func addHours(hours: Int) -> DateTime
+    public func add(hours: Int) -> DateTime
     {
         let timespan = TimeSpan(days: 0, hours: hours, minutes: 0, seconds: 0)
-        return self.addTimespan(timespan)
+        return self.add(timespan: timespan)
     }
 
     /**
@@ -290,10 +290,10 @@ extension DateTime
 
     :returns: A new DateTime modified by the number of days.
     */
-    public func addDays(days: Int) -> DateTime
+    public func add(days: Int) -> DateTime
     {
         let timespan = TimeSpan(days: days, hours: 0, minutes: 0, seconds: 0)
-        return self.addTimespan(timespan)
+        return self.add(timespan: timespan)
     }
 
     /**
@@ -303,9 +303,9 @@ extension DateTime
 
     :returns: A new DateTime modified by the timespan.
     */
-    public func addTimespan(timespan: TimeSpan) -> DateTime
+    public func add(timespan: TimeSpan) -> DateTime
     {
-        let newDate = self.internalDate.dateByAddingTimeInterval(timespan.timeInterval)
+        let newDate = self.internalDate.addingTimeInterval(timespan.timeInterval)
         return DateTime(date: newDate, timezone: self.timezone)
     }
 
@@ -316,9 +316,9 @@ extension DateTime
 
     :returns: The timespan since the current date.
     */
-    public func timespanSinceDate(datetime: DateTime) -> TimeSpan
+    public func timespanSince(datetime: DateTime) -> TimeSpan
     {
-        let timeInterval = self.internalDate.timeIntervalSinceDate(datetime.internalDate)
+        let timeInterval = self.internalDate.timeIntervalSince(datetime.internalDate)
         return TimeSpan(timeInterval: timeInterval)
     }
 }
@@ -335,7 +335,7 @@ extension DateTime: CustomStringConvertible
 
     :returns: The DateTime string value.
     */
-    public func stringValue(format format: DateTimeStringFormat) -> String
+    public func stringValue(format: DateTimeStringFormat) -> String
     {
         return self.stringValue(format: format.rawValue)
     }
@@ -347,13 +347,13 @@ extension DateTime: CustomStringConvertible
 
     :returns: The DateTime string value.
     */
-    public func stringValue(format format: String) -> String
+    public func stringValue(format: String) -> String
     {
-        let dateFormatter = NSDateFormatter.sharedFormatter
+        let dateFormatter = DateFormatter.sharedFormatter
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = self.timezone
 
-        return dateFormatter.stringFromDate(self.internalDate)
+        return dateFormatter.string(from: self.internalDate)
     }
 
     /// The description of the DateTime; this defaults to DateTimeStringFormat.Full

@@ -24,11 +24,11 @@ THE SOFTWARE.
 
 public enum Weekday: Int
 {
-    case    Sunday = 1,
-            Monday,
-            Tuesday,
-            Wednesday,
-            Thursday,
-            Friday,
-            Saturday
+    case    sunday = 1,
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday
 }
