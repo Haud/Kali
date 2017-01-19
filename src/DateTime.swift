@@ -153,7 +153,7 @@ public struct DateTime: Comparable
         var calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         calendar.timeZone = timezone
 
-        let calendarUnits = Set<Calendar.Component>([.day, .hour, .year, .minute, .second, .weekday, .weekdayOrdinal, .weekOfMonth, .weekOfYear])
+        let calendarUnits = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekday, .weekdayOrdinal, .weekOfMonth, .weekOfYear, .month, .year])
         self.calendarComponents = calendar.dateComponents(calendarUnits, from: self.internalDate)
     }
 }
