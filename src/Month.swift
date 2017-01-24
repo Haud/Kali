@@ -24,16 +24,16 @@ THE SOFTWARE.
 
 public enum Month: Int
 {
-    case    January = 1,
-            February,
-            March,
-            April,
-            May,
-            June,
-            July,
-            August,
-            September,
-            October,
-            November,
-            December
+    case    january = 1,
+            february,
+            march,
+            april,
+            may,
+            june,
+            july,
+            august,
+            september,
+            october,
+            november,
+            december
 }

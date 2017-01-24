@@ -27,12 +27,12 @@ THE SOFTWARE.
 */
 public struct TimeSpan
 {
-    private static let secondsPerMinute = 60
-    private static let secondsPerHour = 60 * secondsPerMinute
-    private static let secondsPerDay = 24 * secondsPerHour
+    fileprivate static let secondsPerMinute = 60
+    fileprivate static let secondsPerHour = 60 * secondsPerMinute
+    fileprivate static let secondsPerDay = 24 * secondsPerHour
 
     /// The raw time interval for the timespan, in seconds.
-    public var timeInterval: NSTimeInterval {
+    public var timeInterval: TimeInterval {
         get {
             var totalSeconds = self.seconds
             totalSeconds += self.minutes * TimeSpan.secondsPerMinute
@@ -62,7 +62,7 @@ public struct TimeSpan
 
     :returns: A new TimeSpan.
     */
-    public init(timeInterval: NSTimeInterval)
+    public init(timeInterval: TimeInterval)
     {
         var totalSecondsInterval = Int(timeInterval)
 
@@ -104,7 +104,7 @@ public struct TimeSpan
 extension TimeSpan: RawRepresentable
 {
     /// The RawValue of TimeSpan.
-    public typealias RawValue = NSTimeInterval
+    public typealias RawValue = TimeInterval
 
     /**
     Initializes a new instance of TimeSpan by its raw value.

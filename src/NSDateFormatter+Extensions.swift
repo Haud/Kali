@@ -24,12 +24,12 @@ THE SOFTWARE.
 
 import UIKit
 
-internal extension NSDateFormatter
+internal extension DateFormatter
 {
     /// A shared instance of the date formatter.
-    static var sharedFormatter: NSDateFormatter {
+    static var sharedFormatter: DateFormatter {
         get {
-            return NSDateFormatter()
+            return DateFormatter()
         }
     }
 }
